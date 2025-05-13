@@ -3,17 +3,28 @@ import React, { useEffect, useState } from "react";
 
 const Form = () => {
   const [users, setUsers] = useState([]);
-  const [names, setnames] = useState();
+  const [names, setNames] = useState();
   const [searchBy, setSearchBy] = useState("name");
+  const axi = axios.create({
+    baseURL: "https://jsonplaceholder.typicode.com",
+  });
 
+  // async-await form
+  // async function getUsers() {
+  //   const response = await axi.get("/users");
+  //   setUsers(response.data);
+  // }
+  // useEffect(() => {
+  //   getUsers();
+  // }, []);
+
+  // promise fomm
   useEffect(() => {
-    axios
-      .get("https://jsonplaceholder.typicode.com/users")
-      .then((response) => setUsers(response.data));
+    axi.get("/users").then((response) => setUsers(response.data));
   }, []);
 
   function handleChange(e) {
-    setnames(e.target.value);
+    setNames(e.target.value);
   }
 
   const filteredUsers = users.filter((user) => {
